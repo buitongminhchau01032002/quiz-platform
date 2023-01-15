@@ -18,18 +18,13 @@ function HeaderLive() {
     return (
         <div className="fixed right-0 left-0 z-[10] flex h-14 items-center justify-between border-b bg-gray-100 px-8">
             <div className="flex items-center">
-                <div className="mr-3 text-lg font-medium text-gray-700">Ôn tập OOP C++</div>
+                <div className="mr-3 text-lg font-medium text-primary">Ôn tập OOP C++</div>
                 <CircularProgressbarWithChildren
                     className="h-8 w-8"
                     background
                     styles={buildStyles({
-                        // This is in units relative to the 100x100px
-                        // SVG viewbox.
                         backgroundColor: '#eee',
-                        textColor: '#333',
-
-                        pathColor: '#a174ff',
-                        textSize: '30px',
+                        pathColor: '#currentcolor',
                         trailColor: 'transparent',
                     })}
                     value={(((quiz.correctQuestion + quiz.incorrectQuestion) * 100) / quiz.numberOfQuestion).toFixed(0)}
