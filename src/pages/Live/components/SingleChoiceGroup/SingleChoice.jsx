@@ -56,8 +56,8 @@ function SingleChoice({ chosen = false, answer = false, incorrect = false, disab
             className={clsx(
                 'flex cursor-pointer items-center rounded-lg border border-white bg-white p-4 text-gray-700 hover:border-primary',
                 {
-                    '!border-red-500 !bg-red-500 !bg-opacity-10': incorrect,
-                    '!border-green-500 !bg-green-500 !bg-opacity-10': answer,
+                    '!border-red-500 !bg-red-500/10': incorrect,
+                    '!border-green-500 !bg-green-500/10': answer,
                     'border-primary': chosen,
                     'pointer-events-none': disabled,
                 }

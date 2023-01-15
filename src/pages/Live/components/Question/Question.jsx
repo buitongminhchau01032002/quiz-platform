@@ -64,7 +64,7 @@ function Question({ questionIndex }) {
                     )}
                 </div>
                 <div>
-                    {!question?.submited && (
+                    {!question?.submited && question?.chosenAnswer !== null && (
                         <button
                             className="flex h-10 items-center rounded-lg bg-primary px-6 font-medium uppercase text-white hover:bg-primary-dark"
                             onClick={handleSubmitQuestion}
