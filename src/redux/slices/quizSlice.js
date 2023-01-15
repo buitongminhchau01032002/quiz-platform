@@ -14,7 +14,9 @@ const initialState = {
             ],
             correctAnswer: 0,
             hint: '',
-            explanation: 'Hahaha',
+            explanation:
+                'm dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et do',
+            showExplanation: false,
             chosenAnswer: null,
             submited: false,
         },
@@ -38,6 +40,12 @@ export const quizSlice = createSlice({
         submitQuestion: (state, action) => {
             // payload --> questionIndex
             state.questions[action.payload].submited = true;
+            state.questions[action.payload].showExplanation = true;
+        },
+
+        toggleShowExplation: (state, action) => {
+            // payload --> questionIndex
+            state.questions[action.payload].showExplanation = !state.questions[action.payload].showExplanation;
         },
     },
 });
