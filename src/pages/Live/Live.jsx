@@ -11,7 +11,7 @@ function Live() {
             <HeaderLive />
             <main className="flex h-screen pt-14">
                 {/* Main quiz */}
-                <div className="h-full flex-1 bg-gray-100">
+                <div className="h-full flex-1 overflow-y-auto bg-gray-100 pb-6">
                     <Question questionIndex={quiz?.currentQuestion || 0} />
                 </div>
                 <Sidebar />

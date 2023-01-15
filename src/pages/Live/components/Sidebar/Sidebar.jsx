@@ -8,9 +8,10 @@ function Sidebar() {
     const questions = quiz.questions;
 
     return (
-        <div className="h-full w-[352px] bg-white p-4">
-            <div className="flex justify-center">
-                <div className="grid grid-cols-5 gap-3">
+        <div className="flex h-full w-[352px] flex-col bg-white">
+            {/* LIST */}
+            <div className="flex flex-1 justify-center overflow-y-auto px-4 pb-4 pt-6">
+                <div className="grid h-fit grid-cols-5 gap-3">
                     {questions.map((question, index) => (
                         <button
                             key={index}
@@ -30,16 +31,14 @@ function Sidebar() {
                     ))}
                 </div>
             </div>
-            <div className="mt-8 flex items-center justify-around">
+
+            {/* STATISTIC */}
+            <div className="flex items-center justify-around px-4 pt-2 pb-4">
                 <div className="flex flex-col items-center text-green-600">
                     <CircularProgressbarWithChildren
                         className="h-20"
                         styles={buildStyles({
-                            // This is in units relative to the 100x100px
-                            // SVG viewbox.
-
                             pathColor: 'currentcolor',
-                            textSize: '30px',
                             trailColor: '#eee',
                         })}
                         strokeWidth={5}
@@ -55,11 +54,7 @@ function Sidebar() {
                     <CircularProgressbarWithChildren
                         className="h-20"
                         styles={buildStyles({
-                            // This is in units relative to the 100x100px
-                            // SVG viewbox.
-
                             pathColor: 'currentcolor',
-                            textSize: '30px',
                             trailColor: '#eee',
                         })}
                         strokeWidth={5}
@@ -75,11 +70,7 @@ function Sidebar() {
                     <CircularProgressbarWithChildren
                         className="h-20"
                         styles={buildStyles({
-                            // This is in units relative to the 100x100px
-                            // SVG viewbox.
-
                             pathColor: 'currentcolor',
-                            textSize: '30px',
                             trailColor: '#eee',
                         })}
                         strokeWidth={5}
