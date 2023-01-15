@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,7 +44,12 @@ function HeaderLive() {
             </div>
             <div className="flex space-x-3">
                 <button
-                    className="flex h-9 items-center rounded-lg border border-primary px-4 text-sm font-medium uppercase text-primary hover:bg-primary/5"
+                    className={clsx(
+                        'flex h-9 items-center rounded-lg border border-primary px-4 text-sm font-medium uppercase text-primary hover:bg-primary/5',
+                        {
+                            'pointer-events-none opacity-50': quiz.currentQuestion === 0,
+                        }
+                    )}
                     onClick={handlePrevQuestion}
                 >
                     <svg
@@ -59,7 +65,12 @@ function HeaderLive() {
                     <p className="ml-1">Câu hỏi trước</p>
                 </button>
                 <button
-                    className="flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium uppercase text-white hover:bg-primary-dark"
+                    className={clsx(
+                        'flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium uppercase text-white hover:bg-primary-dark',
+                        {
+                            'pointer-events-none opacity-50': quiz.currentQuestion === quiz.questions.length - 1,
+                        }
+                    )}
                     onClick={handleNextQuestion}
                 >
                     <p className="mr-1">Câu hỏi sau</p>
