@@ -18,22 +18,28 @@ function HeaderLive() {
     return (
         <div className="fixed right-0 left-0 z-[10] flex h-14 items-center justify-between border-b bg-gray-100 px-8">
             <div className="flex items-center">
-                <div className="mr-3 text-lg font-medium text-primary">Ôn tập OOP C++</div>
-                <CircularProgressbarWithChildren
-                    className="h-8 w-8"
-                    background
-                    styles={buildStyles({
-                        backgroundColor: '#eee',
-                        pathColor: '#currentcolor',
-                        trailColor: 'transparent',
-                    })}
-                    value={(((quiz.correctQuestion + quiz.incorrectQuestion) * 100) / quiz.numberOfQuestion).toFixed(0)}
-                >
-                    <div style={{ fontSize: '10px' }} className="font-medium text-gray-700">
-                        {(((quiz.correctQuestion + quiz.incorrectQuestion) * 100) / quiz.numberOfQuestion).toFixed(0) +
-                            '%'}
-                    </div>
-                </CircularProgressbarWithChildren>
+                <div className="mr-3 text-lg font-medium">Ôn tập OOP C++</div>
+                <div className="text-primary">
+                    <CircularProgressbarWithChildren
+                        className="h-8 w-8"
+                        background
+                        styles={buildStyles({
+                            backgroundColor: '#eee',
+                            pathColor: 'currentcolor',
+                            trailColor: 'transparent',
+                        })}
+                        value={(
+                            ((quiz.correctQuestion + quiz.incorrectQuestion) * 100) /
+                            quiz.numberOfQuestion
+                        ).toFixed(0)}
+                    >
+                        <div style={{ fontSize: '10px' }} className="font-medium text-gray-700">
+                            {(((quiz.correctQuestion + quiz.incorrectQuestion) * 100) / quiz.numberOfQuestion).toFixed(
+                                0
+                            ) + '%'}
+                        </div>
+                    </CircularProgressbarWithChildren>
+                </div>
             </div>
             <div className="flex space-x-3">
                 <button
