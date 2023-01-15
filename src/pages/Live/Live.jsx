@@ -8,7 +8,7 @@ function Live() {
             <main className="flex h-screen pt-14">
                 {/* Main quiz */}
                 <div className="h-full flex-1 bg-gray-100">
-                    <Question />
+                    <Question questionIndex={0} />
                 </div>
             </main>
         </div>
