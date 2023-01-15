@@ -17,9 +17,13 @@ function Question({ questionIndex }) {
         dispatch(quizActions.toggleShowExplation(questionIndex));
     }
 
+    function handleNextQuestion() {
+        dispatch(quizActions.nextQuestion());
+    }
+
     return (
         <div className="mx-auto mt-5 w-full max-w-[720px]">
-            <h1 className="text-2xl font-semibold text-gray-700">Câu hỏi 1</h1>
+            <h1 className="text-2xl font-semibold text-gray-700">{`Câu hỏi ${questionIndex + 1}`}</h1>
             <p className="mt-4 text-gray-700">{question.content}</p>
 
             {/* ANSWER */}
@@ -70,7 +74,10 @@ function Question({ questionIndex }) {
                     )}
 
                     {question?.submited && (
-                        <button className="flex h-10 items-center rounded-lg bg-primary px-6 font-medium uppercase text-white hover:bg-primary-dark">
+                        <button
+                            className="flex h-10 items-center rounded-lg bg-primary px-6 font-medium uppercase text-white hover:bg-primary-dark"
+                            onClick={handleNextQuestion}
+                        >
                             <p>Câu hỏi tiếp theo</p>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
