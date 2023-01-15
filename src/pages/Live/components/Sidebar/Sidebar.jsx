@@ -1,11 +1,17 @@
 import clsx from 'clsx';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { quizSelector } from '../../../../redux/selectors';
+import { quizActions } from '../../../../redux/slices/quizSlice';
 
 function Sidebar() {
     const quiz = useSelector(quizSelector);
     const questions = quiz.questions;
+    const dispatch = useDispatch();
+
+    function handleGotoQuestion(index) {
+        dispatch(quizActions.gotoQuestion(index));
+    }
 
     return (
         <div className="flex h-full w-[352px] flex-col bg-white">
@@ -25,6 +31,7 @@ function Sidebar() {
                                     'ring-2 ring-primary': index === quiz.currentQuestion,
                                 }
                             )}
+                            onClick={() => handleGotoQuestion(index)}
                         >
                             {index + 1}
                         </button>

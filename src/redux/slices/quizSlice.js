@@ -261,6 +261,11 @@ export const quizSlice = createSlice({
                 state.currentQuestion--;
             }
         },
+        gotoQuestion: (state, action) => {
+            if (action.payload < state.questions.length && action.payload >= 0) {
+                state.currentQuestion = action.payload;
+            }
+        },
     },
 });
 
