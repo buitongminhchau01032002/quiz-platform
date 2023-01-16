@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import QUESTION_STATE from '../../constants/question-state';
+import QUIZ_STATE from '../../constants/quiz-state';
 
 const initialState = {
     currentQuestion: 0,
     numberOfQuestion: 12,
     correctQuestion: 0,
     incorrectQuestion: 0,
+    skippedQuestion: 0,
+    state: QUIZ_STATE.PENDDING,
     questions: [
         {
             type: 'single-choose',
@@ -288,7 +291,30 @@ export const quizSlice = createSlice({
             }
         },
 
-        complete: (state, action) => {},
+        complete: (state, action) => {
+            state.state = QUIZ_STATE.RESULT;
+            state.questions.forEach((ques) => {
+                if (ques.state !== QUESTION_STATE.PENDDING) {
+                    return;
+                }
+                if (ques.chosenAnswer === null || ques.chosenAnswer === undefined) {
+                    state.skippedQuestion++;
+                    ques.state = QUESTION_STATE.SKIPPED;
+                } else if (ques.chosenAnswer !== ques.correctAnswer) {
+                    state.incorrectQuestion++;
+                    ques.state = QUESTION_STATE.INCORRECT;
+                } else {
+                    state.correctQuestion++;
+                    ques.state = QUESTION_STATE.CORRECT;
+                }
+            });
+        },
+
+        toggleResultAndReview: (state, action) => {
+            if (state.state !== QUIZ_STATE.PENDDING) {
+                state.state = state.state === QUIZ_STATE.RESULT ? QUIZ_STATE.REVIEW : QUIZ_STATE.RESULT;
+            }
+        },
     },
 });
 
