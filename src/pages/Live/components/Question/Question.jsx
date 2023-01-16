@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { quizSelector } from '../../../../redux/selectors';
 import { quizActions } from '../../../../redux/slices/quizSlice';
 import QUESTION_STATE from '../../../../constants/question-state';
+import clsx from 'clsx';
+import QUIZ_STATE from '../../../../constants/quiz-state';
 
 function Question({ questionIndex }) {
     const quiz = useSelector(quizSelector);
@@ -22,12 +24,114 @@ function Question({ questionIndex }) {
     }
 
     function handleNextQuestion() {
-        dispatch(quizActions.nextQuestion());
+        let index = null;
+        for (let i = questionIndex + 1; i < quiz.questions.length; i++) {
+            if (quiz.questions[i].state === QUESTION_STATE.PENDDING) {
+                index = i;
+                break;
+            }
+        }
+        if (index !== null) {
+            dispatch(quizActions.gotoQuestion(index));
+            return;
+        }
+
+        index = null;
+        for (let i = 0; i < questionIndex; i++) {
+            if (quiz.questions[i].state === QUESTION_STATE.PENDDING) {
+                index = i;
+                break;
+            }
+        }
+        if (index !== null) {
+            dispatch(quizActions.gotoQuestion(index));
+            return;
+        }
     }
 
     return (
         <div className="mx-auto mt-5 w-full max-w-[720px]">
-            <h1 className="text-2xl font-semibold text-gray-700">{`Câu hỏi ${questionIndex + 1}`}</h1>
+            <div className="flex items-center ">
+                <h1 className="text-2xl font-semibold text-gray-700">{`Câu hỏi ${questionIndex + 1}`}</h1>
+                <p
+                    className={clsx('mt-1 ml-3 flex ', {
+                        'text-primary': question.state === QUESTION_STATE.PENDDING,
+                        'text-green-500': question.state === QUESTION_STATE.CORRECT,
+                        'text-red-400': question.state === QUESTION_STATE.INCORRECT,
+                        'text-orange-400': question.state === QUESTION_STATE.SKIPPED,
+                    })}
+                >
+                    {question.state === QUESTION_STATE.PENDDING && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="h-5 w-5"
+                        >
+                            <path
+                                fillRule="evenodd"
+                                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12z"
+                                clipRule="evenodd"
+                            />
+                        </svg>
+                    )}
+                    {question.state === QUESTION_STATE.CORRECT && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="h-5 w-5"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                        </svg>
+                    )}
+                    {question.state === QUESTION_STATE.INCORRECT && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="h-5 w-5"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                        </svg>
+                    )}
+                    {question.state === QUESTION_STATE.SKIPPED && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="h-5 w-5"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                            />
+                        </svg>
+                    )}
+                    <p className="ml-1 text-sm font-semibold">
+                        {question.state === QUESTION_STATE.PENDDING && 'Chưa hoàn thành'}
+
+                        {question.state === QUESTION_STATE.CORRECT && 'Chính xác'}
+                        {question.state === QUESTION_STATE.INCORRECT && 'Chưa chính xác'}
+                        {question.state === QUESTION_STATE.SKIPPED && 'Đã bỏ qua'}
+                    </p>
+                </p>
+            </div>
             <p className="mt-4 text-gray-700">{question.content}</p>
 
             {/* HINT */}
@@ -110,7 +214,7 @@ function Question({ questionIndex }) {
                         </button>
                     )}
 
-                    {question.state !== QUESTION_STATE.PENDDING && (
+                    {question.state !== QUESTION_STATE.PENDDING && quiz.state === QUIZ_STATE.PENDDING && (
                         <button
                             className="flex h-10 items-center rounded-lg bg-primary px-6 font-medium uppercase text-white hover:bg-primary-dark"
                             onClick={handleNextQuestion}

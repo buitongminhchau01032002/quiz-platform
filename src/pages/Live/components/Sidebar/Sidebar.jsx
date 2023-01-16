@@ -28,6 +28,7 @@ function Sidebar() {
                                 {
                                     'border-none !bg-red-400 !text-white': question.state === QUESTION_STATE.INCORRECT,
                                     'border-none !bg-green-400 !text-white': question.state === QUESTION_STATE.CORRECT,
+                                    'border-none !bg-orange-300 !text-white': question.state === QUESTION_STATE.SKIPPED,
                                     'ring-2 ring-primary': index === quiz.currentQuestion,
                                 }
                             )}
