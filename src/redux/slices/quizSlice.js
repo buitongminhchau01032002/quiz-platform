@@ -262,6 +262,15 @@ export const quizSlice = createSlice({
                 state.correctQuestion++;
                 question.state = QUESTION_STATE.CORRECT;
             }
+
+            // Check complete
+            const penddingQuestion = state.questions.reduce(
+                (total, currQuestion) => (currQuestion.state === QUESTION_STATE.PENDDING ? total + 1 : total),
+                0
+            );
+            if (penddingQuestion <= 0) {
+                state.state = QUIZ_STATE.REVIEW;
+            }
         },
 
         toggleShowExplation: (state, action) => {

@@ -53,7 +53,7 @@ function Question({ questionIndex }) {
         <div className="mx-auto mt-5 w-full max-w-[720px]">
             <div className="flex items-center ">
                 <h1 className="text-2xl font-semibold text-gray-700">{`Câu hỏi ${questionIndex + 1}`}</h1>
-                <p
+                <div
                     className={clsx('mt-1 ml-3 flex ', {
                         'text-primary': question.state === QUESTION_STATE.PENDDING,
                         'text-green-500': question.state === QUESTION_STATE.CORRECT,
@@ -130,7 +130,7 @@ function Question({ questionIndex }) {
                         {question.state === QUESTION_STATE.INCORRECT && 'Chưa chính xác'}
                         {question.state === QUESTION_STATE.SKIPPED && 'Đã bỏ qua'}
                     </p>
-                </p>
+                </div>
             </div>
             <p className="mt-4 text-gray-700">{question.content}</p>
 

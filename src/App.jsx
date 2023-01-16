@@ -1,7 +1,9 @@
 import { Fragment } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { privateRoutes, publicRoutes } from './routes';
 import HeaderLayout from './layouts/HeaderLayout';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
     return (
@@ -54,6 +56,7 @@ function App() {
                         );
                     })}
                 </Routes>
+                <ToastContainer autoClose={4000} />
             </div>
         </Router>
     );

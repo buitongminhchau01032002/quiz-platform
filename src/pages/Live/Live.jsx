@@ -1,7 +1,8 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import QUIZ_STATE from '../../constants/quiz-state';
 import { quizSelector } from '../../redux/selectors';
 import HeaderLive from './components/HeaderLive';
@@ -11,6 +12,15 @@ import Sidebar from './components/Sidebar';
 function Live() {
     const quiz = useSelector(quizSelector);
     const [showSidebar, setShowSidebar] = useState(true);
+    const showCompletedQuiz = () => toast.success('Bạn đã hoàn thành tất cả câu hỏi!');
+
+    const isQuizComplete = useMemo(() => quiz.state !== QUIZ_STATE.PENDDING, [quiz.state]);
+    useEffect(() => {
+        if (isQuizComplete && quiz.skippedQuestion === 0) {
+            showCompletedQuiz();
+        }
+    }, [isQuizComplete]);
+
     return (
         <div className="w-full overflow-x-hidden">
             <HeaderLive />
