@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
@@ -92,7 +92,9 @@ function HeaderLive() {
                         </button>
                     ) : (
                         <>
-                            <button
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                animate={{ opacity: 1, scale: 1 }}
                                 className={clsx(
                                     'ml-3 flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium uppercase text-white hover:bg-primary-dark'
                                 )}
@@ -142,8 +144,10 @@ function HeaderLive() {
                                         <p className="ml-1">Xem tổng kết</p>
                                     </>
                                 )}
-                            </button>
-                            <button
+                            </motion.button>
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                animate={{ opacity: 1, scale: 1 }}
                                 className={clsx(
                                     'ml-3 flex h-9 items-center rounded-lg border border-primary px-4 text-sm font-medium uppercase text-primary hover:bg-primary/5'
                                 )}
@@ -165,18 +169,20 @@ function HeaderLive() {
                                 </svg>
 
                                 <p className="ml-1">Làm lại</p>
-                            </button>
+                            </motion.button>
                         </>
                     )}
                 </div>
                 <div className="flex space-x-3">
                     {quiz.state !== QUIZ_STATE.RESULT && (
                         <>
-                            <button
+                            <motion.button
+                                initial={{ scale: 0.5 }}
+                                animate={{ scale: 1 }}
                                 className={clsx(
                                     'flex h-9 items-center rounded-lg border border-primary px-4 text-sm font-medium uppercase text-primary hover:bg-primary/5',
                                     {
-                                        'pointer-events-none opacity-50': quiz.currentQuestion === 0,
+                                        'pointer-events-none !opacity-50': quiz.currentQuestion === 0,
                                     }
                                 )}
                                 onClick={handlePrevQuestion}
@@ -196,12 +202,15 @@ function HeaderLive() {
                                     />
                                 </svg>
                                 <p className="ml-1">Câu hỏi trước</p>
-                            </button>
-                            <button
+                            </motion.button>
+
+                            <motion.button
+                                initial={{ scale: 0.5 }}
+                                animate={{ scale: 1 }}
                                 className={clsx(
                                     'flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium uppercase text-white hover:bg-primary-dark',
                                     {
-                                        'pointer-events-none opacity-50':
+                                        'pointer-events-none !opacity-50':
                                             quiz.currentQuestion === quiz.questions.length - 1,
                                     }
                                 )}
@@ -218,7 +227,7 @@ function HeaderLive() {
                                 >
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                 </svg>
-                            </button>
+                            </motion.button>
                         </>
                     )}
                 </div>

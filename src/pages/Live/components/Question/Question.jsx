@@ -52,7 +52,7 @@ function Question({ questionIndex }) {
     return (
         <AnimatePresence mode="wait">
             <motion.div
-                exit={{ x: -150, opacity: 0, transition: { duration: 0.2 } }}
+                exit={{ x: -150, opacity: 0, transition: { duration: 0.15 } }}
                 className="mx-auto mt-5 w-full max-w-[720px]"
                 key={questionIndex}
             >
