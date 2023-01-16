@@ -1,10 +1,28 @@
+import { motion } from 'framer-motion';
 import clsx from 'clsx';
+
+const anim = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+};
+
+const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+    },
+};
 
 function SingleChoice({ chosen = false, answer = false, incorrect = false, disabled = false, children, onClick }) {
     function getIcon() {
         if (incorrect) {
             return (
-                <div className="mr-3 flex w-7 items-center text-red-500">
+                <motion.div
+                    className="mr-3 flex w-7 items-center text-red-500"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -19,12 +37,16 @@ function SingleChoice({ chosen = false, answer = false, incorrect = false, disab
                             d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                     </svg>
-                </div>
+                </motion.div>
             );
         }
         if (chosen) {
             return (
-                <div className="mr-3 flex w-7 items-center text-green-600">
+                <motion.div
+                    className="mr-3 flex w-7 items-center text-green-600"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
                         <path
                             fillRule="evenodd"
@@ -32,7 +54,7 @@ function SingleChoice({ chosen = false, answer = false, incorrect = false, disab
                             clipRule="evenodd"
                         />
                     </svg>
-                </div>
+                </motion.div>
             );
         }
         return (
@@ -52,7 +74,7 @@ function SingleChoice({ chosen = false, answer = false, incorrect = false, disab
     }
 
     return (
-        <div
+        <motion.div
             className={clsx(
                 'flex cursor-pointer items-center rounded-lg border border-white bg-white p-4 text-gray-700 hover:border-primary',
                 {
@@ -63,10 +85,12 @@ function SingleChoice({ chosen = false, answer = false, incorrect = false, disab
                 }
             )}
             onClick={() => onClick && onClick()}
+            whileTap={{ scale: 0.98 }}
+            variants={anim}
         >
             {getIcon()}
             <p>{children}</p>
-        </div>
+        </motion.div>
     );
 }
 

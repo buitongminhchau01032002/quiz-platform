@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';

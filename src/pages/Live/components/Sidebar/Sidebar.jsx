@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { quizSelector } from '../../../../redux/selectors';

@@ -50,7 +50,7 @@ function Question({ questionIndex }) {
     }
 
     return (
-        <div className="mx-auto mt-5 w-full max-w-[720px]">
+        <div className="mx-auto mt-5 w-full max-w-[720px]" key={questionIndex}>
             <div className="flex items-center ">
                 <h1 className="text-2xl font-semibold text-gray-700">{`Câu hỏi ${questionIndex + 1}`}</h1>
                 <div
