@@ -287,6 +287,8 @@ export const quizSlice = createSlice({
                 state.currentQuestion = action.payload;
             }
         },
+
+        complete: (state, action) => {},
     },
 });
 
