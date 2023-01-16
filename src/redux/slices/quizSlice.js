@@ -315,6 +315,10 @@ export const quizSlice = createSlice({
                 state.state = state.state === QUIZ_STATE.RESULT ? QUIZ_STATE.REVIEW : QUIZ_STATE.RESULT;
             }
         },
+
+        reset: (state, action) => {
+            return initialState;
+        },
     },
 });
 
