@@ -7,6 +7,22 @@ import { quizActions } from '../../../../redux/slices/quizSlice';
 import QUESTION_STATE from '../../../../constants/question-state';
 import QUIZ_STATE from '../../../../constants/quiz-state';
 
+const animGroup = {
+    hidden: { opacity: 1 },
+    show: {
+        opacity: 1,
+        transition: {
+            delayChildren: 0.2,
+            staggerChildren: 0.07,
+        },
+    },
+};
+
+const animItem = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+};
+
 function Sidebar() {
     const quiz = useSelector(quizSelector);
     const questions = quiz.questions;
@@ -20,12 +36,19 @@ function Sidebar() {
     }
 
     return (
-        <div className="flex h-full w-[352px] flex-col bg-white">
+        <motion.div className="flex h-full w-[352px] flex-col bg-white">
             {/* LIST */}
             <div className="flex flex-1 justify-center overflow-y-auto px-4 pb-4 pt-6">
-                <div className="grid h-fit grid-cols-5 gap-3">
+                <motion.div
+                    variants={animGroup}
+                    initial="hidden"
+                    animate="show"
+                    className="grid h-fit grid-cols-5 gap-3"
+                >
                     {questions.map((question, index) => (
-                        <button
+                        <motion.button
+                            variants={animItem}
+                            whileTap={{ scale: 0.9 }}
                             key={index}
                             className={clsx(
                                 'flex h-11 w-11 items-center justify-center rounded-lg border bg-gray-50 font-semibold text-gray-700 ring-offset-1 hover:ring-2 hover:ring-primary',
@@ -39,15 +62,20 @@ function Sidebar() {
                             onClick={() => handleGotoQuestion(index)}
                         >
                             {index + 1}
-                        </button>
+                        </motion.button>
                     ))}
-                </div>
+                </motion.div>
             </div>
 
             {/* STATISTIC */}
             {quiz.state === QUIZ_STATE.PENDDING ? (
                 <div className="flex items-center justify-around px-4 pt-2 pb-4">
-                    <div className="flex flex-col items-center text-green-600">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="flex flex-col items-center text-green-600"
+                    >
                         <CircularProgressbarWithChildren
                             className="h-20"
                             styles={buildStyles({
@@ -62,8 +90,13 @@ function Sidebar() {
                             </div>
                         </CircularProgressbarWithChildren>
                         <p>{quiz.correctQuestion + '/' + quiz.numberOfQuestion}</p>
-                    </div>
-                    <div className="flex flex-col items-center text-red-500">
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="flex flex-col items-center text-red-500"
+                    >
                         <CircularProgressbarWithChildren
                             className="h-20"
                             styles={buildStyles({
@@ -78,8 +111,13 @@ function Sidebar() {
                             </div>
                         </CircularProgressbarWithChildren>
                         <p>{quiz.incorrectQuestion + '/' + quiz.numberOfQuestion}</p>
-                    </div>
-                    <div className="flex flex-col items-center text-primary">
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="flex flex-col items-center text-primary"
+                    >
                         <CircularProgressbarWithChildren
                             className="h-20"
                             styles={buildStyles({
@@ -100,10 +138,15 @@ function Sidebar() {
                             </div>
                         </CircularProgressbarWithChildren>
                         <p>{quiz.correctQuestion + quiz.incorrectQuestion + '/' + quiz.numberOfQuestion}</p>
-                    </div>
+                    </motion.div>
                 </div>
             ) : (
-                <div className="px-4 pt-2 pb-4">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="px-4 pt-2 pb-4"
+                >
                     <button
                         className={clsx(
                             'flex h-10 w-full items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium uppercase text-white hover:bg-primary-dark'
@@ -127,9 +170,9 @@ function Sidebar() {
 
                         <p className="ml-1">Xem tổng kết</p>
                     </button>
-                </div>
+                </motion.div>
             )}
-        </div>
+        </motion.div>
     );
 }
 

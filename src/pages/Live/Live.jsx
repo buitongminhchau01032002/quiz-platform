@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import { useSelector } from 'react-redux';
@@ -47,24 +48,29 @@ function Live() {
                             )}
                             onClick={() => setShowSidebar(!showSidebar)}
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className={clsx('h-6 w-6', {
-                                    'rotate-180': showSidebar,
-                                })}
+                            <motion.div
+                                whileHover={{ x: showSidebar ? 4 : -4 }}
+                                className="flex h-full w-full items-center justify-center"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
-                                />
-                            </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className={clsx('h-6 w-6', {
+                                        'rotate-180': showSidebar,
+                                    })}
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
+                                    />
+                                </svg>
+                            </motion.div>
                         </button>
-                        <Sidebar />
+                        {showSidebar && <Sidebar />}
                     </div>
                 </main>
             ) : (
