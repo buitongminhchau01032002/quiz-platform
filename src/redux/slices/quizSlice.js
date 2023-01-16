@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import QUESTION_STATE from '../../constants/question-state';
 
 const initialState = {
     currentQuestion: 0,
@@ -23,7 +24,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -41,7 +42,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -60,7 +61,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -79,7 +80,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -97,7 +98,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -116,7 +117,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -135,7 +136,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -153,7 +154,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -172,7 +173,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -191,7 +192,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -209,7 +210,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
         {
             type: 'single-choose',
@@ -228,7 +229,7 @@ const initialState = {
             showExplanation: false,
             showHint: false,
             chosenAnswer: null,
-            submited: false,
+            state: QUESTION_STATE.PENDDING,
         },
     ],
 };
@@ -249,22 +250,26 @@ export const quizSlice = createSlice({
 
         submitQuestion: (state, action) => {
             // payload --> questionIndex
-            state.questions[action.payload].submited = true;
-            state.questions[action.payload].showExplanation = true;
-            if (state.questions[action.payload].chosenAnswer !== state.questions[action.payload].correctAnswer) {
+            const question = state.questions[action.payload];
+            question.showExplanation = true;
+            if (question.chosenAnswer !== question.correctAnswer) {
                 state.incorrectQuestion++;
+                question.state = QUESTION_STATE.INCORRECT;
             } else {
                 state.correctQuestion++;
+                question.state = QUESTION_STATE.CORRECT;
             }
         },
 
         toggleShowExplation: (state, action) => {
             // payload --> questionIndex
-            state.questions[action.payload].showExplanation = !state.questions[action.payload].showExplanation;
+            const question = state.questions[action.payload];
+            question.showExplanation = !question.showExplanation;
         },
         toggleShowHint: (state, action) => {
             // payload --> questionIndex
-            state.questions[action.payload].showHint = !state.questions[action.payload].showHint;
+            const question = state.questions[action.payload];
+            question.showHint = !question.showHint;
         },
 
         nextQuestion: (state, action) => {

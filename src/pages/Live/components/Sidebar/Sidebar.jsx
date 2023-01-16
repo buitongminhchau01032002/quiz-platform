@@ -3,6 +3,7 @@ import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-pro
 import { useDispatch, useSelector } from 'react-redux';
 import { quizSelector } from '../../../../redux/selectors';
 import { quizActions } from '../../../../redux/slices/quizSlice';
+import QUESTION_STATE from '../../../../constants/question-state';
 
 function Sidebar() {
     const quiz = useSelector(quizSelector);
@@ -24,10 +25,8 @@ function Sidebar() {
                             className={clsx(
                                 'flex h-11 w-11 items-center justify-center rounded-lg border bg-gray-50 font-semibold text-gray-700 ring-offset-1 hover:ring-2 hover:ring-primary',
                                 {
-                                    'border-none !bg-red-400 !text-white':
-                                        question.submited && question.chosenAnswer !== question.correctAnswer,
-                                    'border-none !bg-green-400 !text-white':
-                                        question.submited && question.chosenAnswer === question.correctAnswer,
+                                    'border-none !bg-red-400 !text-white': question.state === QUESTION_STATE.INCORRECT,
+                                    'border-none !bg-green-400 !text-white': question.state === QUESTION_STATE.CORRECT,
                                     'ring-2 ring-primary': index === quiz.currentQuestion,
                                 }
                             )}

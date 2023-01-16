@@ -3,6 +3,7 @@ import SingleChoiceGroup from '../SingleChoiceGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import { quizSelector } from '../../../../redux/selectors';
 import { quizActions } from '../../../../redux/slices/quizSlice';
+import QUESTION_STATE from '../../../../constants/question-state';
 
 function Question({ questionIndex }) {
     const quiz = useSelector(quizSelector);
@@ -68,12 +69,12 @@ function Question({ questionIndex }) {
                 answers={question.answers}
                 correctAnswer={question.correctAnswer}
                 chosenAnswer={question.chosenAnswer}
-                submited={question.submited}
+                submited={question.state !== QUESTION_STATE.PENDDING}
             />
 
             <div className="mt-4 flex items-center justify-between">
                 <div>
-                    {question?.submited && question?.explanation && (
+                    {question?.state !== QUESTION_STATE.PENDDING && question?.explanation && (
                         <button
                             className="flex font-medium text-primary-dark hover:text-primary"
                             onClick={handleToggleExplanation}
@@ -100,7 +101,7 @@ function Question({ questionIndex }) {
                     )}
                 </div>
                 <div>
-                    {!question?.submited && question?.chosenAnswer !== null && (
+                    {question.state === QUESTION_STATE.PENDDING && question?.chosenAnswer !== null && (
                         <button
                             className="flex h-10 items-center rounded-lg bg-primary px-6 font-medium uppercase text-white hover:bg-primary-dark"
                             onClick={handleSubmitQuestion}
@@ -109,7 +110,7 @@ function Question({ questionIndex }) {
                         </button>
                     )}
 
-                    {question?.submited && (
+                    {question.state !== QUESTION_STATE.PENDDING && (
                         <button
                             className="flex h-10 items-center rounded-lg bg-primary px-6 font-medium uppercase text-white hover:bg-primary-dark"
                             onClick={handleNextQuestion}
@@ -131,7 +132,7 @@ function Question({ questionIndex }) {
             </div>
 
             {/* EXPLANATION */}
-            {question?.submited && question?.showExplanation && question?.explanation && (
+            {question.state !== QUESTION_STATE.PENDDING && question?.showExplanation && question?.explanation && (
                 <div className="mt-2">
                     <div className="font-semibold">Giải thích:</div>
                     <div>{question?.explanation}</div>
