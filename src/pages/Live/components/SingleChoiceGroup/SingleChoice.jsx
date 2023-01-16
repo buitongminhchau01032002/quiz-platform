@@ -6,14 +6,6 @@ const anim = {
     show: { opacity: 1, y: 0 },
 };
 
-const item = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-        y: 0,
-        opacity: 1,
-    },
-};
-
 function SingleChoice({ chosen = false, answer = false, incorrect = false, disabled = false, children, onClick }) {
     function getIcon() {
         if (incorrect) {
@@ -85,7 +77,8 @@ function SingleChoice({ chosen = false, answer = false, incorrect = false, disab
                 }
             )}
             onClick={() => onClick && onClick()}
-            whileTap={{ scale: 0.98 }}
+            whileTap={{ scale: 1 }}
+            whileHover={{ scale: 1.03 }}
             variants={anim}
         >
             {getIcon()}
