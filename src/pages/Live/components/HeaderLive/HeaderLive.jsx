@@ -181,7 +181,7 @@ function HeaderLive() {
                                 animate={{ scale: 1 }}
                                 whileTap={{ scale: 0.9 }}
                                 className={clsx(
-                                    'flex h-9 items-center rounded-lg border border-primary px-4 text-sm font-medium uppercase text-primary hover:bg-primary/5',
+                                    'flex h-9 select-none items-center rounded-lg border border-primary px-4 text-sm font-medium uppercase text-primary hover:bg-primary/5',
                                     {
                                         'pointer-events-none !opacity-50': quiz.currentQuestion === 0,
                                     }
@@ -210,7 +210,7 @@ function HeaderLive() {
                                 animate={{ scale: 1 }}
                                 whileTap={{ scale: 0.9 }}
                                 className={clsx(
-                                    'flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium uppercase text-white hover:bg-primary-dark',
+                                    'flex h-9 select-none items-center rounded-lg bg-primary px-4 text-sm font-medium uppercase text-white hover:bg-primary-dark',
                                     {
                                         'pointer-events-none !opacity-50':
                                             quiz.currentQuestion === quiz.questions.length - 1,
