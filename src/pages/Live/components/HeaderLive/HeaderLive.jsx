@@ -179,6 +179,7 @@ function HeaderLive() {
                             <motion.button
                                 initial={{ scale: 0.5 }}
                                 animate={{ scale: 1 }}
+                                whileTap={{ scale: 0.9 }}
                                 className={clsx(
                                     'flex h-9 items-center rounded-lg border border-primary px-4 text-sm font-medium uppercase text-primary hover:bg-primary/5',
                                     {
@@ -207,6 +208,7 @@ function HeaderLive() {
                             <motion.button
                                 initial={{ scale: 0.5 }}
                                 animate={{ scale: 1 }}
+                                whileTap={{ scale: 0.9 }}
                                 className={clsx(
                                     'flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium uppercase text-white hover:bg-primary-dark',
                                     {

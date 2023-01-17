@@ -1,4 +1,5 @@
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
+import { useDebounce } from 'use-debounce';
 import SingleChoiceGroup from '../SingleChoiceGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import { quizSelector } from '../../../../redux/selectors';
@@ -9,7 +10,9 @@ import QUIZ_STATE from '../../../../constants/quiz-state';
 
 function Question({ questionIndex }) {
     const quiz = useSelector(quizSelector);
+
     const question = quiz.questions[questionIndex];
+    console.log(question);
     const dispatch = useDispatch();
 
     function handleSubmitQuestion() {

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useDebounce } from 'use-debounce';
 import QUIZ_STATE from '../../constants/quiz-state';
 import { quizSelector } from '../../redux/selectors';
 import HeaderLive from './components/HeaderLive';
@@ -29,6 +30,7 @@ const animItem = {
 
 function Live() {
     const quiz = useSelector(quizSelector);
+    const [questionIndex] = useDebounce(quiz?.currentQuestion, 200);
     const [showSidebar, setShowSidebar] = useState(true);
     const showCompletedQuiz = () => toast.success('Bạn đã hoàn thành tất cả câu hỏi!');
 
@@ -47,7 +49,7 @@ function Live() {
                     <motion.main exit={{ opacity: 0 }} className="flex h-screen pt-14">
                         {/* Main quiz */}
                         <div className="h-full flex-1 bg-gray-100 pb-6" style={{ overflowY: 'overlay' }}>
-                            <Question questionIndex={quiz?.currentQuestion || 0} />
+                            <Question questionIndex={questionIndex || 0} />
                         </div>
 
                         {/* SIZEBAR */}
