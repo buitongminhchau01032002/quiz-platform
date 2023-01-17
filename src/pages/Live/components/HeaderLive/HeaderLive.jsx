@@ -43,7 +43,7 @@ function HeaderLive() {
         <>
             <div className="fixed right-0 left-0 z-[10] flex h-14 items-center justify-between border-b bg-gray-100 px-8">
                 <div className="flex items-center">
-                    <div className="mr-3 text-lg font-medium">Ôn tập OOP C++</div>
+                    <div className="mr-3 text-lg font-medium">{quiz.name}</div>
                     <div className="text-primary">
                         <CircularProgressbarWithChildren
                             className="h-8 w-8"
